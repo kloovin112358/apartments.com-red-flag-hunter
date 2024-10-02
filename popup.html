@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <title>Apartment Red Flags</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+  </head>
+  <style>
+  .list-group-item {
+    padding-left:0!important;
+  }
+  </style>
+  <body style="width:300px;">
+    <main>
+      <div class="container">
+        <div class="tab-content p-2 pt-3" id="myTabContent">
+          <div class="tab-pane fade show active" id="redflags-tab-pane" role="tabpanel" aria-labelledby="redflags-tab" tabindex="0">
+            <section>
+              <h1 class="h5">Apartment Listing Red Flags</h1>
+              <div id="unsupportedUrlSection" class="d-none">
+                <p class="small fst-italic">Extension will run when launched on an apartments.com listing.</p>
+              </div>
+              <div id="supportedUrlSection" class="d-none">
+                <small class="fst-italic">Note: accuracy of assessment is based solely on quality of information in listing.</small>
+                <hr class="mb-1"/>
+                <p id="errorMsg" class="small text-danger my-0"></p>
+                <div class="d-flex justify-content-center d-none" id="statusSpinnerContainer">
+                  <div class="spinner-border text-primary mt-3" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                </div>
+                <ul class="list-group list-group-flush d-none" id="flagsListGroup">
+                  <li class="list-group-item" id="hasRentSpecials">
+                    <span class="green-flag text-success d-none"><i class="bi bi-check-circle-fill" aria-hidden="true"></i> Does not have rent specials</span>
+                    <span class="red-flag d-none text-danger"><i class="bi bi-flag-fill" aria-hidden="true"></i> May have rent specials</span>
+                  </li>
+                  <li class="list-group-item" id="hasRentListed">
+                    <span class="green-flag text-success d-none"><i class="bi bi-check-circle-fill" aria-hidden="true"></i> Lists monthly rent</span>
+                    <span class="red-flag d-none text-danger"><i class="bi bi-flag-fill" aria-hidden="true"></i> Does not list monthly rent</span>
+                  </li>
+                  <li class="list-group-item" id="hasSquareFootage">
+                    <span class="green-flag text-success d-none"><i class="bi bi-check-circle-fill" aria-hidden="true"></i> Lists square footage</span>
+                    <span class="red-flag d-none text-danger"><i class="bi bi-flag-fill" aria-hidden="true"></i> Does not list square footage</span>
+                  </li>
+                  <li class="list-group-item" id="hasUnitNumberListed">
+                    <span class="green-flag text-success d-none"><i class="bi bi-check-circle-fill" aria-hidden="true"></i> Lists unit number(s)</span>
+                    <span class="red-flag d-none text-danger"><i class="bi bi-flag-fill" aria-hidden="true"></i> Does not list unit number(s)</span>
+                  </li>
+                  <li class="list-group-item" id="isGroundFloorOrBasement">
+                    <span class="red-flag d-none text-danger"><i class="bi bi-flag-fill" aria-hidden="true"></i> Likely 1st floor or basement</span>
+                  </li>
+                  <li class="list-group-item" id="hasPhotosSimilarUnitText">
+                    <span class="red-flag d-none text-danger"><i class="bi bi-flag-fill" aria-hidden="true"></i> Photos may be of similar unit</span>
+                  </li>
+                  <li class="list-group-item" id="hasLowSquareFootage">
+                    <span class="green-flag text-success d-none"><i class="bi bi-check-circle-fill" aria-hidden="true"></i> Sq. footage not abnormally low</span>
+                    <span class="red-flag d-none text-danger"><i class="bi bi-flag-fill" aria-hidden="true"></i> Square footage abnormally low</span>
+                  </li>
+                  <li class="list-group-item" id="isOnBusyStreet">
+                    <span class="red-flag d-none text-danger"><i class="bi bi-flag-fill" aria-hidden="true"></i> May have heavy street noise</span>
+                  </li>
+                  <li class="list-group-item" id="wasLastUpdatedWeekPlusAgo">
+                    <span class="red-flag d-none text-danger"><i class="bi bi-flag-fill" aria-hidden="true"></i> Last updated over a week ago</span>
+                  </li>
+                </ul>
+              </div>
+              
+            </section>
+          </div>
+          <div class="tab-pane fade" id="settings-tab-pane" role="tabpanel" aria-labelledby="settings-tab" tabindex="0">
+            <section>
+              <h1 class="h4 mb-3">Settings</h1>
+              <form>
+    
+                <!-- Apartment Site Field -->
+                <div class="form-group mb-2">
+                  <label for="apartmentSite">Apartment Site (required)</label>
+                  <select class="form-control" id="apartmentSite" required>
+                    <option value="">--------</option>
+                    <option value="www.apartments.com">Apartments.com</option>
+                    <option value="www.apartmentfinder.com">Apartment Finder</option>
+                    <option value="www.apartmentguide.com">Apartment Guide</option>
+                    <option value="www.compass.com">Compass</option>
+                    <option value="www.chicago.craigslist.org">Craigslist</option>
+                    <option value="www.domu.com">Domu</option>
+                    <option value="www.forrent.com">ForRent.com</option>
+                    <option value="www.hotpads.com">HotPads</option>
+                    <option value="www.realtor.com">Realtor.com</option>
+                    <option value="www.redfin.com">Redfin</option>
+                    <option value="www.rent.com">Rent.com</option>
+                    <option value="www.trulia.com">Trulia</option>
+                    <option value="www.zillow.com">Zillow</option>
+                  </select>
+                </div>
+    
+                <!-- Apartment Type Field -->
+                <div class="form-group mb-2">
+                  <label for="apartmentType">Apartment Type</label>
+                  <select class="form-control" id="apartmentType">
+                    <option value="">--------</option>
+                    <option value="studio">Studio</option>
+                    <option value="1-bedroom">1 Bedroom</option>
+                    <option value="2-bedroom">2 Bedroom</option>
+                    <option value="3-bedroom">3 Bedroom</option>
+                    <option value="4-bedroom">4 Bedroom</option>
+                  </select>
+                </div>
+          
+                <!-- Max Price Field -->
+                <div class="form-group mb-2">
+                  <label for="maxPrice">Max Rent</label>
+                  <div class="input-group">
+                    <span class="input-group-text" id="basic-addon1">$</span>
+                    <input type="number" class="form-control" id="maxPrice" placeholder="Enter maximum rent" min="1" step="1">
+                  </div>
+    
+                </div>
+              </form>
+            </section>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script src="bootstrap.bundle.min.js" defer></script>
+    <script src="popup.js" defer></script>
+  </body>
+</html>

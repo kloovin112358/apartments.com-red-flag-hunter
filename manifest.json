@@ -1,0 +1,22 @@
+{
+    "manifest_version": 3,
+    "name": "Apartments.com Red Flag Hunter",
+    "version": "1.0",
+    "description": "Reviews listings on apartments.com and seeks out red flags that may be easy to miss.",
+    "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+    "permissions": ["activeTab"],
+    "action": {
+      "default_popup": "popup.html"
+    },
+    "content_scripts": [
+      {
+        "matches": ["https://*.apartments.com/*"],
+        "js": ["content.js"]
+      }
+    ]
+  }
+  
